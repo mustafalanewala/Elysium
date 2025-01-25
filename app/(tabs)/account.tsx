@@ -1,7 +1,7 @@
 import { Text, SafeAreaView } from "react-native"
 
-export default function Explore() {
+export default function Account() {
   return <SafeAreaView>
-    <Text>Explore</Text>
+    <Text>Account</Text>
   </SafeAreaView>
 }
