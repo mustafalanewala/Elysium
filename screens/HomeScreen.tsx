@@ -4,11 +4,10 @@ import axios from 'axios';
 
 const UNSPLASH_API_KEY = 'sIj0YuBPU7Rq0FhaoTOfe083eBczi08FCD6GOS-o7lE';
 
-// TypeScript type for wallpaper
 interface Wallpaper {
   id: string;
   urls: {
-    small: string;  // Optimized image URL for smaller size
+    small: string;
     full: string;
   };
 }
@@ -16,7 +15,7 @@ interface Wallpaper {
 const HomeScreen = ({ navigation }: any) => {
   const [wallpapers, setWallpapers] = useState<Wallpaper[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1); // To handle pagination
+  const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true); // To track if there are more wallpapers to load
 
   const fetchWallpapers = async () => {
@@ -29,16 +28,16 @@ const HomeScreen = ({ navigation }: any) => {
         params: {
           client_id: UNSPLASH_API_KEY,
           query: 'wallpapers',
-          per_page: 30,  // Fetch 30 wallpapers per request
-          page: page,  // Handle pagination
+          per_page: 30,
+          page: page,
         },
       });
 
       const newWallpapers = response.data;
 
-      setWallpapers((prevWallpapers) => [...prevWallpapers, ...newWallpapers]); // Append new wallpapers
-      setPage((prevPage) => prevPage + 1); // Increment page for next request
-      if (newWallpapers.length < 30) setHasMore(false); // Stop fetching if fewer than 30 wallpapers are returned
+      setWallpapers((prevWallpapers) => [...prevWallpapers, ...newWallpapers]);
+      setPage((prevPage) => prevPage + 1);
+      if (newWallpapers.length < 30) setHasMore(false);
     } catch (error) {
       console.error('Error fetching wallpapers:', error);
     } finally {
@@ -47,11 +46,11 @@ const HomeScreen = ({ navigation }: any) => {
   };
 
   useEffect(() => {
-    fetchWallpapers(); // Initial fetch
-  }, []); // Empty dependency array to run only on mount
+    fetchWallpapers();
+  }, []);
 
   const handleNextPage = () => {
-    fetchWallpapers(); // Trigger fetching more wallpapers when "Next" is pressed
+    fetchWallpapers();
   };
 
   if (loading && page === 1) {
@@ -66,7 +65,7 @@ const HomeScreen = ({ navigation }: any) => {
     <View style={styles.container}>
       <FlatList
         data={wallpapers}
-        numColumns={2} // Use 2 columns for the layout (can be adjusted based on screen size)
+        numColumns={2}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
   item: {
     flex: 1,
     margin: 5,
-    height: 260,  // Set the height of the image container to 260px
+    height: 260,
     borderRadius: 8,
     overflow: 'hidden',
   },
@@ -109,7 +108,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 8,
-    resizeMode: 'cover',  // Ensures proper aspect ratio while covering the area
+    resizeMode: 'cover',
   },
   loadingContainer: {
     flex: 1,
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
   },
   loadMoreButton: {
     padding: 10,
-    backgroundColor: '#0000ff',
+    backgroundColor: 'skyblue',
     alignItems: 'center',
     marginVertical: 20,
     borderRadius: 5,

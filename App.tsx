@@ -4,21 +4,24 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './screens/HomeScreen';
 import ExploreScreen from './screens/ExploreScreen';
-import AccountScreen from './screens/AccountScreen'; // Placeholder for now
-import WallpaperDetailScreen from './screens/WallpaperDetailScreen'; // Import WallpaperDetailScreen
-import { Ionicons } from '@expo/vector-icons'; // For tab icons
-
+import AccountScreen from './screens/AccountScreen';
+import WallpaperDetailScreen from './screens/WallpaperDetailScreen';
+import { Ionicons } from '@expo/vector-icons';
+import { FavoritesProvider } from './context/FavoritesContext';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="HomeTab">
-        <Stack.Screen name="HomeTab" component={HomeTabs} options={{ headerShown: false }} />
-        <Stack.Screen name="WallpaperDetail" component={WallpaperDetailScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <FavoritesProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="HomeTab">
+          <Stack.Screen name="HomeTab" component={HomeTabs} options={{ headerShown: false }} />
+          <Stack.Screen name="WallpaperDetail" component={WallpaperDetailScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </FavoritesProvider>
+
   );
 };
 

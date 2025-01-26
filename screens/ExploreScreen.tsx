@@ -15,11 +15,11 @@ interface Wallpaper {
 const ExploreScreen = ({ navigation }: any) => {
   const [wallpapers, setWallpapers] = useState<Wallpaper[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [searchText, setSearchText] = useState<string>('');  // Hold the search text state
+  const [searchText, setSearchText] = useState<string>('');
 
   // Fetch wallpapers based on the search query or default to "dark"
   const fetchWallpapers = async (query: string) => {
-    if (!query.trim()) return;  // Don't fetch if the search query is empty
+    if (!query.trim()) return;
 
     setLoading(true);
     try {
@@ -30,7 +30,7 @@ const ExploreScreen = ({ navigation }: any) => {
           per_page: 20,
         },
       });
-      setWallpapers(response.data.results);  // Use the search results instead of the main API
+      setWallpapers(response.data.results);
     } catch (error) {
       console.error('Error fetching wallpapers:', error);
     } finally {
@@ -40,9 +40,8 @@ const ExploreScreen = ({ navigation }: any) => {
 
   const handleSearch = () => {
     if (searchText.trim()) {
-      fetchWallpapers(searchText);  // Manually trigger search when pressing 'Search'
+      fetchWallpapers(searchText);
     } else {
-      // Default to dark wallpapers if no search text is entered
       fetchWallpapers('dark');
     }
   };
@@ -57,8 +56,8 @@ const ExploreScreen = ({ navigation }: any) => {
   );
 
   useEffect(() => {
-    fetchWallpapers('dark');  // Default search to "dark" wallpapers when the component mounts
-  }, []);  // Run only once on mount
+    fetchWallpapers('dark');
+  }, []);
 
   if (loading) {
     return (
